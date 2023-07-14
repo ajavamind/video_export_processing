@@ -112,10 +112,13 @@ class Ffmpeg(private val parent: PApplet, var outputFilePath: String) {
             // Check if this process is ffmpeg.exe
             if (m.find()) {
                 // If it is, send it CTRL+C to stop it
-                Kernel32.INSTANCE.GenerateConsoleCtrlEvent(
-                    Wincon.CTRL_C_EVENT,
-                    m.group(1).toInt()
-                )
+                //Kernel32.INSTANCE.GenerateConsoleCtrlEvent(
+                //    Wincon.CTRL_C_EVENT,
+                //    m.group(1).toInt()
+                //)
+				// alternate control event works for 64bit
+				Runtime.getRuntime().exec("taskkill /IM ffmpeg.exe");
+
                 break
             }
         }
