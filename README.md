@@ -23,7 +23,7 @@ need to build it yourself. To install it:
 
 ## Bulding the library
 
-The project can be opened in IntelliJ Idea community edition.
+### Building with IntelliJ Idea community edition.
 
 Wait for indexing (takes a minute).
 
@@ -33,10 +33,9 @@ On the Gradle tab on the right side of the IDE, double click on:
 
 This should update the `p5library` folder which you can use as described under **Using the library**.
 
-
 Also by running the 
 
-    videoExport > Tasks > ocumentation > dokkaHtml 
+    videoExport > Tasks > Documentation > dokkaHtml 
 
 one can create the docs, that end up in 
 
@@ -45,6 +44,12 @@ one can create the docs, that end up in
 
 The previous version of the library uses Ant to build, an older build system.
 
+### Building with Windows command line.
+
+    .\gradlew.bat shadowJar
+
+
+## Testing
 
 I tested the library in Processing 3 and 4 and it does seem to run, and it can
 now generate a video pair (original video plus alpha channel video). The idea
