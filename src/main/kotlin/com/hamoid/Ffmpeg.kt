@@ -89,7 +89,9 @@ class Ffmpeg(private val parent: PApplet, var outputFilePath: String) {
                 e.printStackTrace()
             } catch (e: IOException) {
                 e.printStackTrace()
-            }
+            } catch (e: NullPointerException) {
+			    e.printStackTrace()
+			}
             processBuilder = null
             process = null
         }
@@ -107,8 +109,20 @@ class Ffmpeg(private val parent: PApplet, var outputFilePath: String) {
         val isFfmpeg = Pattern.compile("ffmpeg\\.exe.*?([0-9]+)")
         var processDetails: String
         // Iterate over all processes
-        while (allProcesses.readLine().also { processDetails = it } != null) {
+        //while (allProcesses.readLine().also { processDetails = it } != null) {
+        while (true) {
+			try {
+		    processDetails = allProcesses.readLine()
+			} catch (exception: NullPointerException) {
+				break
+		    }
+			if (processDetails == null) {
+			    break
+			}
             val m = isFfmpeg.matcher(processDetails)
+			if (m == null) {
+			    break
+			}
             // Check if this process is ffmpeg.exe
             if (m.find()) {
                 // If it is, send it CTRL+C to stop it
@@ -118,7 +132,6 @@ class Ffmpeg(private val parent: PApplet, var outputFilePath: String) {
                 //)
 				// alternate control event works for 64bit
 				Runtime.getRuntime().exec("taskkill /IM ffmpeg.exe");
-
                 break
             }
         }
